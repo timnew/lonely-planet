@@ -1,7 +1,7 @@
 describe Taxonomy do
   let(:xml) { File.open(File.join(File.dirname(__FILE__), '../taxonomy.xml')) }
 
-  it 'should load from file', :wip do
+  it 'should load from file', :smoke do
     taxonomy = Taxonomy.parse xml
     taxonomy.name.should == 'World'
     taxonomy.children.length.should == 1
