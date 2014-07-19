@@ -9,4 +9,6 @@ gem 'commander'
 
 group :test do   
   gem 'rspec'
+  gem 'rspec-autotest'
+  gem 'autotest-standalone'
 end

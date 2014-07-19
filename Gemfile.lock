@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    autotest-standalone (4.5.11)
     awesome_print (1.2.0)
     coderay (1.1.0)
     columnize (0.8.9)
@@ -27,6 +28,8 @@ GEM
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
       rspec-mocks (~> 3.0.0)
+    rspec-autotest (1.0.0)
+      rspec-core (>= 2.99.0.beta1, < 4.0.0)
     rspec-core (3.0.2)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.2)
@@ -41,9 +44,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest-standalone
   awesome_print
   commander
   pry
   pry-debugger
   rake
   rspec
+  rspec-autotest
