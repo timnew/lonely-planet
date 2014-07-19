@@ -1,0 +1,3 @@
+class SemanticNode < Node
+
+end

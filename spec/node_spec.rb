@@ -1,4 +1,5 @@
 describe Node do
+
   it 'should add child' do
     parent = Node.new
     child = Node.new
