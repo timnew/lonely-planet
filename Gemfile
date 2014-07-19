@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'rake'
 gem 'activesupport'
@@ -15,4 +15,5 @@ group :test do
   gem 'rspec'
   gem 'rspec-autotest'
   gem 'autotest-standalone'
+  gem 'rr', require: false
 end

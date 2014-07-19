@@ -2,12 +2,12 @@ class Taxonomy
   class Visitor < Node::XmlVisitor
     attr_accessor :taxonomy
 
-    def start_taxonomy(attrs)
+    def enter_taxonomy(attrs)
       @taxonomy = Taxonomy.new
       node_stack.push taxonomy
     end
 
-    def end_taxonomy
+    def leave_taxonomy
       node_stack.pop
     end
 
@@ -15,7 +15,7 @@ class Taxonomy
       taxonomy.name = text
     end
 
-    def start_node(attrs)
+    def enter_node(attrs)
       node = current_node.create_child
       
       node.atlas_id = attrs[:atlas_node_id]
@@ -23,7 +23,7 @@ class Taxonomy
       node_stack.push node
     end
 
-    def end_node
+    def leave_node
       node_stack.pop
     end
 

@@ -22,4 +22,31 @@ describe Node do
     parent.children.first.should == child
     child.parent.should == parent
   end
+
+  describe Node::XmlVisitor do
+    it 'should invoke element enter callback' do
+      mock(subject).enter_example({})
+
+      subject.start_element 'example', []
+    end
+
+    it 'should parse attributes for element' do
+      mock(subject).enter_example({name:'cool'})
+
+      subject.start_element 'example', [['name', 'cool']]
+    end
+
+    it 'should invoke element leave callback' do
+      mock(subject).leave_example
+
+      subject.end_element 'example'
+    end
+
+    it 'should invoke element text callback' do
+      mock(subject).example_text('cool')
+
+      subject.start_element 'example', []
+      subject.characters 'cool'
+    end
+  end
 end

@@ -18,7 +18,7 @@ class Node
     def start_element(name, attrs = [])
       element_stack.push name
 
-      visit_method = :"start_#{name}"
+      visit_method = :"enter_#{name}"
 
       if respond_to?(visit_method)
         send visit_method, Hash[attrs].symbolize_keys!
@@ -28,7 +28,7 @@ class Node
     def end_element(name)
       element_stack.pop
 
-      visit_method = :"end_#{name}"
+      visit_method = :"leave_#{name}"
       if respond_to?(visit_method)
         send visit_method
       end
