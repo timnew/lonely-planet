@@ -1,7 +1,8 @@
 class Taxonomy
-  attr_accessor :name, :parent, :children
+  attr_accessor :name
+  attr_accessor :nodes
 
-  def initialize 
-    @children = []
+  def initialize
+    @nodes = []
   end
 end
