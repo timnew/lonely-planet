@@ -27,7 +27,7 @@ describe Taxonomy::Visitor do
   it 'should instantiate node' do
     subject.start_element 'node', [['atlas_node_id', '1']]
     
-    first_node.should be_an_instance_of Node
+    first_node.should be_an_instance_of Taxonomy::TaxonomyNode
     first_node.atlas_id.should == '1'
   end
 
