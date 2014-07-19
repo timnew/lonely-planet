@@ -24,7 +24,6 @@ task :wip => :'spec:wip'
 
 task :default => :spec
 
-
 desc 'Start Pry with lib loaded'
 task :pry do
   sh 'pry --require "./lib/all"'

@@ -20,4 +20,15 @@ command :render do |c|
   end
 end
 
+command :analyze do |c|
+  c.syntax = 'render analyze [FILE...]'
+  c.description = 'Analyze xml semantic hierarchy'
+  c.action do |args, options|
+    args.each do |file|
+      puts "Analyzing file #{file}..."
+      SemanticNode.analyze(file).print_tree
+    end
+  end
+end
+
 default_command :help

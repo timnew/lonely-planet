@@ -1,3 +1,0 @@
-class SemanticNode < Node
-
-end
