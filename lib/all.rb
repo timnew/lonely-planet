@@ -1,7 +1,7 @@
 require 'pry'
 require 'pry-debugger'
 require 'awesome_print'
-require 'active_support'
+require 'active_support/all'
 
 require 'nokogiri'
 
