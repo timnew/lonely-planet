@@ -4,3 +4,5 @@ gem 'rake'
 gem 'pry'
 gem 'pry-debugger'
 gem 'awesome_print'
+
+gem 'commander'

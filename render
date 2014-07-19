@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+require 'pry-debugger'
+require 'awesome_print'
+
+require 'commander/import'
+
+program :version, '0.0.1'
+program :description, 'Lonely Planet Render'
+
+command :render do |c|
+  c.syntax = 'render render [options]'
+  c.description = 'Render html files from dataset'
+  
+  c.option '-t', '--taxonomy FILE', 'Specify the path to taxonomy xml file'
+  c.option '-d', '--destination FILE', 'Specify the path to destination xml file'
+  c.action do |args, options|
+    options.default taxonomy: 'taxonomy.xml', destination: 'destination.xml'
+    ap options.taxonomy
+    ap options.destination
+  end
+end
+
+default_command :help
