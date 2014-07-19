@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'pry'
-require 'pry-debugger'
-require 'awesome_print'
-
 require './lib/all'
 
 require 'commander/import'
