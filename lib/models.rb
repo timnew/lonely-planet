@@ -1,0 +1,1 @@
+Dir['./lib/models/**'].each {|f| require(f) }

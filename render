@@ -4,6 +4,8 @@ require 'pry'
 require 'pry-debugger'
 require 'awesome_print'
 
+require './lib/all'
+
 require 'commander/import'
 
 program :version, '0.0.1'
@@ -18,7 +20,7 @@ command :render do |c|
   c.action do |args, options|
     options.default taxonomy: 'taxonomy.xml', destination: 'destination.xml'
     ap options.taxonomy
-    ap options.destination
+    ap options.destination    
   end
 end
 
