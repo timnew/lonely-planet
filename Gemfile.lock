@@ -24,7 +24,10 @@ GEM
     i18n (0.6.9)
     json (1.8.1)
     method_source (0.8.2)
+    mini_portile (0.5.3)
     minitest (5.3.3)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -60,6 +63,7 @@ DEPENDENCIES
   autotest-standalone
   awesome_print
   commander
+  nokogiri
   pry
   pry-debugger
   rake
