@@ -46,6 +46,19 @@ describe Taxonomy do
     children.keys.should contain_exactly *%w{1 11 12 121 2}
   end
 
+  it 'should build path' do
+    child1 = subject.create_child('1')
+    child1.name = 'Australia'
+
+    child11 = child1.create_child('11')
+    child11.name = 'Victoria'
+
+    child111 = child11.create_child('111')
+    child111.name = 'Melbourne'
+
+    child111.get_path.should == 'Australia/Victoria/Melbourne'
+  end
+
   describe 'factory methods' do
 
     let(:xml) { File.open(File.join(File.dirname(__FILE__), '../taxonomy.xml')) }

@@ -8,5 +8,13 @@ class Taxonomy
       super ''
       @atlas_id = atlas_id
     end
+
+    def get_path
+      if parent.is_a?(Taxonomy)
+        name
+      else
+        "#{parent.get_path}/#{name}"
+      end
+    end
   end
 end
