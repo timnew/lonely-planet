@@ -1,5 +1,5 @@
 class Taxonomy  
-  class Visitor < Node::XmlVisitor
+  class Visitor < XmlVisitor
     attr_accessor :taxonomy
 
     def enter_taxonomy(attrs)

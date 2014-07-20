@@ -1,12 +1,7 @@
 class SemanticNode
-  class Visitor < Node::XmlVisitor
-    def root_node
-      node_stack.first
-    end
-
+  class Visitor < XmlVisitor
     def initialize
-      super
-      node_stack.push SemanticNode.new
+      super SemanticNode.new
     end
 
     def generic_enter(name, attrs)

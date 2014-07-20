@@ -1,4 +1,55 @@
-describe Node::XmlVisitor do
+describe XmlVisitor do
+
+  describe 'traversal status attributes' do
+
+    it 'should populate current_element and current_parent' do
+      subject.start_element 'level1'
+
+      subject.current_element.should == 'level1'
+      subject.current_parent.should be_nil
+
+      subject.start_element 'level2'
+
+      subject.current_element.should == 'level2'
+      subject.current_parent.should == 'level1'
+
+      subject.end_element 'level2'
+
+      subject.current_element.should == 'level1'
+      subject.current_parent.should be_nil
+    end
+
+    it 'should populate current_node' do
+      subject.node_stack.push 'node'
+
+      subject.current_node.should == 'node'
+
+      subject.node_stack.push 'new node'
+      subject.current_node.should == 'new node'
+
+      subject.node_stack.pop
+      subject.current_node.should == 'node'
+    end
+
+    describe 'root_node' do
+      it 'should initialize root_node in initializer' do
+        subject = XmlVisitor.new 'node'
+        subject.root_node.should == 'node'
+
+        subject.node_stack.push 'new node'
+        subject.root_node.should == 'node'
+      end
+
+      it 'should populate root_node after initialized' do
+        subject = XmlVisitor.new
+        subject.root_node.should be_nil
+
+        subject.node_stack.push 'node'
+        subject.root_node.should == 'node'
+      end
+    end
+  end
+
   describe 'delegate_to method' do
     it 'should ignore if name is null' do
       mock(subject)
