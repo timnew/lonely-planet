@@ -9,12 +9,22 @@ class Taxonomy
       @atlas_id = atlas_id
     end
 
+    def each_parent(&block)
+      return if parent.is_a?(Taxonomy)
+
+      yield parent
+
+      parent.each_parent(&block)
+    end
+
     def get_path
-      if parent.is_a?(Taxonomy)
-        name
-      else
-        "#{parent.get_path}/#{name}"
+      parts = [name]
+
+      each_parent do |parent|
+        parts.unshift parent.name
       end
+
+      parts.join('/')
     end
   end
 end

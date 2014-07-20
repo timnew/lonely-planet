@@ -46,6 +46,21 @@ describe Taxonomy do
     children.keys.should contain_exactly *%w{1 11 12 121 2}
   end
 
+  it 'should iterate each parent' do
+    parents = []
+
+    subject
+      .create_child('1')
+      .create_child('11')
+      .create_child('111')
+      .create_child('self')
+      .each_parent do |parent|
+      parents.unshift parent.atlas_id
+    end
+
+    parents.should contain_exactly '1', '11', '111'
+  end
+
   it 'should build path' do
     child1 = subject.create_child('1')
     child1.name = 'Australia'
