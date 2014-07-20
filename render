@@ -21,14 +21,21 @@ command :render do |c|
                     template: 'lib/templates',
                     output: 'output'
 
+    cwd = File.dirname(__FILE__)
+
+    options.taxonomy = File.expand_path(options.taxonomy, cwd)
+    options.destinations = File.expand_path(options.destinations, cwd)
+    options.template = File.expand_path(options.template, cwd)
+    options.output = File.expand_path(options.output, cwd)
+
     FileUtils.rm_rf(options.output)
 
     FileUtils.mkpath File.join(options.output, 'static')
     FileUtils.cp_r File.join(options.template, 'static/'), options.output
 
-    render = HamlRender.new File.join(options.template, 'page.haml'), options.output
+    render = HamlRender.new File.join(options.template, 'page.haml')
 
-    PageMaker.new(options.taxonomy, options.destinations, render)
+    PageMaker.new(options.output, options.output, render, options.taxonomy, options.destinations)
       .load_taxonomy
       .run
   end

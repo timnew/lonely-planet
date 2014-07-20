@@ -1,11 +1,14 @@
 class PageMaker
 
-  attr_reader :taxonomy_nodes, :render
+  attr_reader :taxonomy_nodes
+  attr_reader :output_path, :root_path, :render
 
-  def initialize(taxonomy, destinations, render)
+  def initialize(output_path, root_path, render, taxonomy, destinations)
+    @output_path = output_path
+    @root_path = root_path
+    @render = render
     @taxonomy_file = taxonomy
     @destinations_file = destinations
-    @render = render
   end
 
   def load_taxonomy
@@ -35,9 +38,9 @@ class PageMaker
 
   def new_destination(destination)
     taxonomy_node = taxonomy_nodes[destination.atlas_id]
-    page = Page.new taxonomy_node, destination
+    page = Page.new output_path, root_path, taxonomy_node, destination
 
-    puts "Rendering page for #{destination.title} at #{page.get_path}..."
+    puts "Rendering page for #{destination.title} at #{page.file_path}..."
 
     render.render page
   end
