@@ -43,9 +43,6 @@ describe Node do
 
   it 'should create child with same type' do
     class SampleNode < Node
-      def initialize(name)
-        super name
-      end
     end
 
     parent = SampleNode.new 'sample'
