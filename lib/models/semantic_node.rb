@@ -26,6 +26,7 @@ class SemanticNode
     @visited += 1
     @occurrence += 1
     @max_occurrence = @occurrence if @max_occurrence < @occurrence
+    self
   end
 
   def reset_occurrence

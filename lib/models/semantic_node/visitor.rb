@@ -1,26 +1,20 @@
 class SemanticNode
-  class Visitor < Nokogiri::XML::SAX::Document
-    attr_reader :node_stack
-
-    def current_node
-      node_stack.last
-    end
-
+  class Visitor < Node::XmlVisitor
     def root_node
       node_stack.first
     end
 
     def initialize
-      @node_stack = [SemanticNode.new]
+      super
+      node_stack.push SemanticNode.new
     end
 
-    def start_element(name, attrs)
-      @node_stack.push current_node[name]
-      current_node.visit
+    def generic_enter(name, attrs)
+      node_stack.push current_node[name].visit
     end
 
-    def end_element(name)
-      @node_stack.pop.leave
+    def generic_leave(name)
+      node_stack.pop.leave
     end
   end
 end
