@@ -55,26 +55,25 @@ describe XmlVisitor do
 
   describe 'delegate_to method' do
     it 'should ignore if name is null' do
-      mock(subject)
       subject.delegate_to nil
     end
   end
 
   describe 'enter element callback' do
     it 'should invoke element enter callback' do
-      mock(subject).enter_example({})
+      expect(subject).to receive(:enter_example).with({})
 
       subject.start_element 'example', []
     end
 
     it 'should parse attributes for element' do
-      mock(subject).enter_example({name: 'cool'})
+      expect(subject).to receive(:enter_example).with({name: 'cool'})
 
       subject.start_element 'example', [['name', 'cool']]
     end
 
     it 'should invoke generic enter' do
-      mock(subject).generic_enter('example', {name: 'cool'})
+      expect(subject).to receive(:generic_enter).with('example', {name: 'cool'})
 
       subject.start_element 'example', [['name', 'cool']]
     end
@@ -82,20 +81,20 @@ describe XmlVisitor do
 
   describe 'leave element callback' do
     it 'should invoke element leave callback' do
-      mock(subject).leave_example
+      expect(subject).to receive(:leave_example)
 
       subject.end_element 'example'
     end
 
     it 'should invoke generic element leave callback' do
-      mock(subject).generic_leave('example')
+      expect(subject).to receive(:generic_leave).with('example')
 
       subject.end_element 'example'
     end
   end
 
   it 'should invoke element text callback' do
-    mock(subject).example_text('cool')
+    expect(subject).to receive(:example_text).with('cool')
 
     subject.start_element 'example', []
     subject.characters 'cool'
@@ -104,14 +103,14 @@ describe XmlVisitor do
   describe 'cdata callback' do
 
     it 'should invoke element cdata callback' do
-      mock(subject).example_cdata('cool')
+      expect(subject).to receive(:example_cdata).with('cool')
 
       subject.start_element 'example', []
       subject.cdata_block 'cool'
     end
 
     it 'should invoke generic cdata callback' do
-      mock(subject).generic_cdata('cool')
+      expect(subject).to receive(:generic_cdata).with('cool')
 
       subject.start_element 'example', []
       subject.cdata_block 'cool'

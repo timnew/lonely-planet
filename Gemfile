@@ -16,5 +16,4 @@ group :test do
   gem 'rspec'
   gem 'rspec-autotest'
   gem 'autotest-standalone'
-  gem 'rr', require: false
 end
