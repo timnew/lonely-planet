@@ -5,10 +5,10 @@ class HamlRender
     @output_path = output_path
   end
 
-  def render(taxonomy_node, destination_node)
-    html = @engine.render(locals = { taxonomy: taxonomy_node, destination: destination_node })
+  def render(page)
+    html = @engine.render(locals = { page: page })
 
-    file_path = File.join(@output_path,"#{taxonomy_node.get_path}.html")
+    file_path = File.join(@output_path, "#{page.get_path}.html")
     ensure_folder(File.dirname(file_path))
 
     File.write(file_path, html)

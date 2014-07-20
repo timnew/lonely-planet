@@ -43,6 +43,8 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     name_parts.join('_')
   end
 
+  def skip_current_element
+  end
   def start_element(name, attrs = [])
     element_stack.push name
 

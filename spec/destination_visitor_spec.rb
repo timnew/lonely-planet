@@ -5,6 +5,10 @@ class SimpleListener
     @destinations = []
   end
 
+  def included?(atlas_id)
+    true
+  end
+
   def last_destination
     destinations.last
   end

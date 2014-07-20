@@ -12,24 +12,25 @@ command :render do |c|
   c.description = 'Render html files from dataset'
   
   c.option '-t', '--taxonomy FILE', 'Specify the path to taxonomy xml file'
-  c.option '-d', '--destination FILE', 'Specify the path to destination xml file'
+  c.option '-d', '--destinations FILE', 'Specify the path to destination xml file'
   c.option '--template FILE', 'Specify the template folder'
   c.option '-o', '--output PATH', 'Specify the output folder'
   c.action do |args, options|
     options.default taxonomy: 'taxonomy.xml',
-                    destination: 'destination.xml',
+                    destinations: 'destinations.xml',
                     template: 'lib/templates',
                     output: 'output'
 
     FileUtils.rm_rf(options.output)
 
-    render = HamlRender.new  File.join(options.template, 'page.haml'), options.output
-    FakeTaxonomy = Struct.new 'FakeTaxonomy', :get_path
-
     FileUtils.mkpath File.join(options.output, 'static')
     FileUtils.cp_r File.join(options.template, 'static/'), options.output
 
-    render.render(FakeTaxonomy.new('page'), nil)
+    render = HamlRender.new File.join(options.template, 'page.haml'), options.output
+
+    PageMaker.new(options.taxonomy, options.destinations, render)
+      .load_taxonomy
+      .run
   end
 end
 

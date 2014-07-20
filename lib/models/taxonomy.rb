@@ -5,4 +5,8 @@ class Taxonomy < Node
   def initialize
     super 'Taxonomy'
   end
+
+  def flatten
+
+  end
 end

@@ -10,6 +10,11 @@ class Destination
     end
 
     def enter_destination(attrs)
+      unless listener.included? attrs[:atlas_id]
+        skip_current_element
+        return
+      end
+
       node_stack.push Destination.new attrs
     end
 
