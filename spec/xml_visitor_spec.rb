@@ -2,33 +2,36 @@ describe XmlVisitor do
 
   describe 'traversal status attributes' do
 
-    it 'should populate current_element and current_parent' do
+    it 'should populate current_element and parent_element' do
       subject.start_element 'level1'
 
       subject.current_element.should == 'level1'
-      subject.current_parent.should be_nil
+      subject.parent_element.should be_nil
 
       subject.start_element 'level2'
 
       subject.current_element.should == 'level2'
-      subject.current_parent.should == 'level1'
+      subject.parent_element.should == 'level1'
 
       subject.end_element 'level2'
 
       subject.current_element.should == 'level1'
-      subject.current_parent.should be_nil
+      subject.parent_element.should be_nil
     end
 
-    it 'should populate current_node' do
+    it 'should populate current_node and parent_node' do
       subject.node_stack.push 'node'
 
       subject.current_node.should == 'node'
+      subject.parent_node.should be_nil
 
       subject.node_stack.push 'new node'
       subject.current_node.should == 'new node'
+      subject.parent_node.should == 'node'
 
       subject.node_stack.pop
       subject.current_node.should == 'node'
+      subject.parent_node.should be_nil
     end
 
     describe 'root_node' do

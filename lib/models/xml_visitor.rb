@@ -5,12 +5,16 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     element_stack.last
   end
 
-  def current_parent
+  def parent_element
     element_stack[-2]
   end
 
   def current_node
     node_stack.last
+  end
+
+  def parent_node
+    node_stack[-2]
   end
 
   def root_node
