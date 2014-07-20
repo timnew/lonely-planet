@@ -15,30 +15,45 @@ class Node
       @node_stack = []
     end
 
+    def delegate_to(method_name, *args)
+      return if method_name.nil?
+
+      if respond_to? method_name
+        send method_name, *args
+      end
+    end
+
+    def current_element_path(depth = 2)
+      name_parts = element_stack[-depth..-1]
+
+      return nil if name_parts.nil?
+
+      name_parts.join('_')
+    end
+
     def start_element(name, attrs = [])
       element_stack.push name
 
-      visit_method = :"enter_#{name}"
+      # noinspection RubyHashKeysTypesInspection
+      attrs_obj = Hash[attrs].symbolize_keys!
 
-      if respond_to?(visit_method)
-        send visit_method, Hash[attrs].symbolize_keys!
-      end
+      delegate_to :"enter_#{name}", attrs_obj
+      delegate_to :generic_enter, name, attrs_obj
     end
 
     def end_element(name)
       element_stack.pop
 
-      visit_method = :"leave_#{name}"
-      if respond_to?(visit_method)
-        send visit_method
-      end
+      delegate_to :"leave_#{name}"
+      delegate_to :generic_leave, name
     end
 
     def characters(text)
-      visit_method = :"#{current_element}_text"
-      if respond_to?(visit_method)
-        send visit_method, text
-      end
+      delegate_to :"#{current_element}_text", text
+    end
+
+    def cdata_block(text)
+      delegate_to :"#{current_element}_cdata", text
     end
   end
 end
