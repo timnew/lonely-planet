@@ -137,4 +137,40 @@ describe XmlVisitor do
       subject.current_element_path(3).should be_nil
     end
   end
+
+  describe 'skip current element' do
+    it 'should skip current element' do
+      subject.start_element 'parent', []
+      subject.start_element 'current', []
+
+      subject.skip?.should be_falsey
+
+      subject.skip_current_element
+
+      subject.skip?.should be_truthy
+
+      expect(subject).not_to receive(:current_text).with(any_args)
+      subject.characters('something')
+
+      expect(subject).not_to receive(:generic_cdata).with(any_args)
+      subject.cdata_block('something')
+
+      expect(subject).not_to receive(:generic_enter).with(any_args)
+      subject.start_element 'child', []
+
+      expect(subject).not_to receive(:skiped_text).with(any_args)
+      subject.characters('something')
+
+      expect(subject).not_to receive(:generic_cdata).with(anything)
+      subject.cdata_block('something')
+
+      expect(subject).not_to receive(:generic_leave).with(any_args)
+      subject.end_element 'child'
+
+      expect(subject).not_to receive(:generic_leave).with(any_args)
+      subject.end_element 'current'
+
+      subject.skip?.should be_falsey
+    end
+  end
 end

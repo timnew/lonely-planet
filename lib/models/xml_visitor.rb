@@ -44,9 +44,21 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
   end
 
   def skip_current_element
+    @skip_level = element_stack.length
   end
+
+  def update_skip
+    @skip_level = nil unless skip?
+  end
+
+  def skip?
+    !@skip_level.nil? and @skip_level <= element_stack.length
+  end
+
   def start_element(name, attrs = [])
     element_stack.push name
+
+    return if skip?
 
     # noinspection RubyHashKeysTypesInspection
     attrs_obj = Hash[attrs].symbolize_keys!
@@ -56,17 +68,24 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
   end
 
   def end_element(name)
-    element_stack.pop
+    unless skip?
+      delegate_to :"leave_#{name}"
+      delegate_to :generic_leave, name
+    end
 
-    delegate_to :"leave_#{name}"
-    delegate_to :generic_leave, name
+    element_stack.pop
+    update_skip
   end
 
   def characters(text)
+    return if skip?
+
     delegate_to :"#{current_element}_text", text
   end
 
   def cdata_block(text)
+    return if skip?
+
     delegate_to :"#{current_element}_cdata", text
     delegate_to :generic_cdata, text
   end
