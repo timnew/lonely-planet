@@ -11,6 +11,7 @@ gem 'commander'
 
 gem 'nokogiri'
 gem 'haml'
+gem 'coffee-script'
 
 group :test do   
   gem 'rspec'
