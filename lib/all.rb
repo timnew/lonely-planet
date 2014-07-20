@@ -4,6 +4,7 @@ require 'awesome_print'
 require 'active_support/all'
 
 require 'nokogiri'
+require 'haml'
 
 def setup_autoload(*dirs)  
   dirs.flatten!
@@ -14,4 +15,4 @@ def setup_autoload(*dirs)
   ActiveSupport::Dependencies.autoload_paths += paths
 end
 
-setup_autoload 'models'
+setup_autoload 'models', 'actors'

@@ -10,6 +10,7 @@ gem 'awesome_print'
 gem 'commander'
 
 gem 'nokogiri'
+gem 'haml'
 
 group :test do   
   gem 'rspec'
