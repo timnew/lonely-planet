@@ -8,6 +8,7 @@ require 'haml'
 
 def setup_autoload(*dirs)  
   dirs.flatten!
+
   root_path = File.dirname(__FILE__)  
 
   paths = dirs.map{|d| File.join(root_path, d) }  
