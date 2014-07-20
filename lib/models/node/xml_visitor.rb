@@ -54,6 +54,7 @@ class Node
 
     def cdata_block(text)
       delegate_to :"#{current_element}_cdata", text
+      delegate_to :generic_cdata, text
     end
   end
 end
