@@ -33,4 +33,20 @@ describe Destination::Visitor do
     subject.end_element 'history'
     subject.end_element 'destination'
   end
+
+  it 'should ignore the destinations that not included' do
+    allow(listener).to receive(:included?).with(an_instance_of(String)) { |id| id == '10010' }
+    expect(listener).to receive(:new_destination).with(an_instance_of(Destination)).once do |destination|
+      destination.atlas_id.should == '10010'
+    end
+
+    subject.start_element 'destination', [['atlas_id', '355064'], ['title', 'Africa'], ['title-ascii', 'africa']]
+    subject.end_element 'destination'
+
+    subject.start_element 'destination', [['atlas_id', '10010'], ['title', 'Beijing'], ['title-ascii', 'beijing']]
+    subject.end_element 'destination'
+
+    subject.start_element 'destination', [['atlas_id', '232323'], ['title', 'Atalantic'], ['title-ascii', 'atlantic']]
+    subject.end_element 'destination'
+  end
 end
