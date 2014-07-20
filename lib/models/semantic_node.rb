@@ -1,6 +1,4 @@
-class SemanticNode
-  attr_reader :children
-
+class SemanticNode < Node
   attr_reader :max_occurrence, :visited
 
   def min_occurrence
@@ -10,16 +8,14 @@ class SemanticNode
   attr_accessor :name
 
   def initialize(name = '<root>')
-    @name = name
+    super name, (Hash.new do |hash, key|
+      hash[key] = SemanticNode.new key
+    end)
 
     @visited = 0
     @min_occurrence = nil
     @max_occurrence = 0
     @occurrence = 0
-
-    @children = Hash.new do |hash, key|
-      hash[key] = SemanticNode.new key
-    end
   end
 
   def visit
@@ -39,10 +35,6 @@ class SemanticNode
     children.values.each do |child|
       child.reset_occurrence
     end
-  end
-
-  def [](key)
-    children[key]
   end
 
   def print_tree(indent_level = 0)

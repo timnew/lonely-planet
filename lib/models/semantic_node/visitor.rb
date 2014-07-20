@@ -5,7 +5,9 @@ class SemanticNode
     end
 
     def generic_enter(name, attrs)
-      node_stack.push current_node[name].visit
+      node = current_node[name]
+      node.visit
+      node_stack.push node
     end
 
     def generic_leave(name)

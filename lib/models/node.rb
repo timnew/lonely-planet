@@ -18,4 +18,6 @@ class Node
 
     child
   end
+
+  delegate :[], :[]=, :length, to: :children
 end
