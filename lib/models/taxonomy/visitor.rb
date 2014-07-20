@@ -16,9 +16,7 @@ class Taxonomy
     end
 
     def enter_node(attrs)
-      node = current_node.create_child
-      
-      node.atlas_id = attrs[:atlas_node_id]
+      node = current_node.create_child attrs[:atlas_node_id]
 
       node_stack.push node
     end

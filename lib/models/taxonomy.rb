@@ -1,7 +1,8 @@
 class Taxonomy < Node   
   extend ClassMethods
+  include ChildCreation
 
-  def create_child
-    add_child TaxonomyNode.new
+  def initialize
+    super 'Taxonomy'
   end
 end
