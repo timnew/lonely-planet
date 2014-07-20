@@ -1,6 +1,6 @@
 class Taxonomy
   class TaxonomyNode < Node
-    include ChildCreation
+    include SharedBehaviors
 
     attr_accessor :atlas_id
 
