@@ -15,7 +15,7 @@ module CachedAttrs
     cached_attr attr_name do
       result = []
 
-      block.call result
+      instance_exec result, &block
 
       result
     end
