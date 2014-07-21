@@ -6,6 +6,8 @@
     %link(media="screen" rel="stylesheet" type="text/css"){ href: "#{root_path}/static/all.css" }
     %link(rel="stylesheet" type="text/css"){ href: "#{root_path}/static/font-awesome.min.css" }
     %script(type="text/javascript"){ src: "#{root_path}/static/jquery-2.1.1.min.js" }
+    %script(type="text/javascript"){ src: "#{root_path}/static/widget.js" }
+    %script(type="text/javascript"){ src: "#{root_path}/static/block_widget.js" }
   %body
     #container
       #header
@@ -38,7 +40,7 @@
                 .inner
                   - section.blocks.each do |b|
                     - if b.has_content?
-                      .text-block
+                      .text-block(data-widget="Block")
                         - if b.has_heading?
                           %h3= b.heading
 
@@ -46,12 +48,4 @@
                           %p{ extra_attrs(i >= b.limit) }= p
 
                         - if b.has_extra?
-                          %a(href="#" data-action="extra") Click to toggle more...
-
-    :coffee
-      $('[data-action=extra]').click (e) ->
-        e.preventDefault()
-
-        $(e.target).closest('.text-block').find('p.extra').slideToggle('slow')
-
-
+                          %a(href="#" data-widget-part='toggleButton' data-action-handler="toggleExtras")
