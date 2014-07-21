@@ -1,3 +1,9 @@
  Clean Up:
-☐ Remove pry from code
-☐ Ignore Unused Destination
+  ✘ Remove pry from code @cancelled (14-07-22 03:08)
+  ✔ Ignore Unused Destination @done (14-07-22 02:03)
+  ✔ Decide what to be displayed on each page by reshaping the Page view model @done (14-07-22 02:03)
+  ✔ Better page template @done (14-07-22 02:03)
+  ✔ Better Front-end Javascript instead of inline one @done (14-07-22 02:03)
+  ☐ A README and introduction about how to setup the project and make it work
+  ✘ A simple web server to serve the output files @cancelled (14-07-22 03:08)
+  ☐ Zip output file as sample output
