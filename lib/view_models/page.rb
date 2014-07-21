@@ -79,17 +79,17 @@ class Page
       build Section do
         title 'When To Go'
         block 'Overview', when_to_go.values[:overview]
-        block 'Climate', when_to_go.values[:climate], extra: !when_to_go.values[:overview].empty?
+        block 'Climate', when_to_go.values[:climate], limit: when_to_go.values[:overview].empty? ? nil : 1
       end
     end
 
     section :practical_information, :health_and_safety do |health_and_safety|
       build Section do
         title 'Health And Safety'
-        extra_block 'Before You Go', health_and_safety.values[:before_you_go]
-        extra_block 'Dangers And Annoyances', health_and_safety.values[:dangers_and_annoyances]
-        extra_block 'In Transit', health_and_safety.values[:in_transit]
-        extra_block 'While You\'re there', health_and_safety.values[:while_youre_there]
+        block 'Before You Go', health_and_safety.values[:before_you_go], limit: 2
+        block 'Dangers And Annoyances', health_and_safety.values[:dangers_and_annoyances], limit: 2
+        block 'In Transit', health_and_safety.values[:in_transit], limit: 2
+        block 'While You\'re there', health_and_safety.values[:while_youre_there], limit: 2
       end
     end
 

@@ -1,10 +1,5 @@
 class Block
-  attr_accessor :paragraphs, :heading
-
-  attr_writer :extra
-  def extra?
-    @extra
-  end
+  attr_accessor :paragraphs, :heading, :limit
 
   def has_heading?
     !heading.nil?
@@ -14,8 +9,12 @@ class Block
     !paragraphs.empty?
   end
 
-  def initialize(paras = [], extra: false, heading: nil)
-    @extra = extra
+  def has_extra?
+    paragraphs.length > limit
+  end
+
+  def initialize(paras = [], limit: nil, heading: nil)
+    @limit = limit.nil? ? paras.length : limit
     @heading = heading
     @paragraphs = paras
   end

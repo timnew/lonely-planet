@@ -42,10 +42,10 @@
                         - if b.has_heading?
                           %h3= b.heading
 
-                        - b.paragraphs.each do |p|
-                          %p{ extra_attrs(b.extra?) }= p
+                        - b.paragraphs.each_with_index do |p, i|
+                          %p{ extra_attrs(i >= b.limit) }= p
 
-                        - if b.extra?
+                        - if b.has_extra?
                           %a(href="#" data-action="extra") Click to toggle more...
 
     :coffee
