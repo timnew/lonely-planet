@@ -1,6 +1,7 @@
 class Page
   extend CachedAttrs
   extend SectionDSL
+  include ViewModelBuilder::DSL
 
   attr_reader :taxonomy_node, :destination
 
@@ -17,6 +18,10 @@ class Page
     File.join(base_path, "#{taxonomy_node.get_path}/index.html")
   end
 
+  def url_for_node(taxonomy_node)
+    path_for_node(root_path, taxonomy_node)
+  end
+
   cached_attr :file_path do
     path_for_node(output_path, taxonomy_node)
   end
@@ -25,27 +30,49 @@ class Page
     taxonomy_node.name
   end
 
-  cached_array_attr :navigation_items do |result|
+  cached_array_attr :navigation_items do |items|
     taxonomy_node.each_parent do |parent|
-      result.unshift NavigationItem.from_taxonomy_node(self, parent, 'fa-level-up')
+      item = build(NavigationItem) do
+        href url_for_node(parent)
+        text parent.name
+        icon 'fa-level-up'
+      end
+
+      items.unshift item
     end
 
-    result.push NavigationItem.new('#', taxonomy_node.name, 'fa-smile-o')
+    item = build NavigationItem do
+      href '#'
+      text taxonomy_node.name
+      icon 'fa-smile-o'
+    end
+    items.push item
 
     taxonomy_node.children.each_value do |child|
-      result.push NavigationItem.from_taxonomy_node(self, child, 'fa-level-down')
+      item = build(NavigationItem) do
+        href url_for_node(child)
+        text child.name
+        icon 'fa-level-down'
+      end
+      items.push item
     end
   end
 
   declare_sections do
 
     section :introductory, :introduction do |introduction|
-      Section.new(introduction.name, introduction.values[:overview])
+      build Section do
+        title introduction.name
+        paragraphs introduction.values[:overview]
+      end
     end
 
     section :history, :history do |history|
-      Section.new(history.name, history.values[:overview], history.values[:history])
+      build Section do
+        title history.name
+        paragraphs history.values[:overview]
+        extra_paragraphs history.values[:history]
+      end
     end
-
   end
 end
