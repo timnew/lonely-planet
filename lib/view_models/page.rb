@@ -92,6 +92,13 @@ class Page
         extra_block 'While You\'re there', health_and_safety.values[:while_youre_there]
       end
     end
+
+    section :practical_information, :visas do |visas|
+      build Section do
+        title 'Visas'
+        block visas.values[:overview]
+        extra_block visas.values[:other]
+        block 'Permits', visas.values[:permits]
       end
     end
   end
