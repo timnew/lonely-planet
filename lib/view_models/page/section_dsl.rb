@@ -22,7 +22,7 @@ class Page
 
     def declare_sections(&block)
       cached_attr :sections do
-        SectionDSLRuntime
+        SectionListBuilder
         .new(self)
         .execute(&block)
         .result
@@ -39,7 +39,7 @@ class Page
     end
   end
 
-  class SectionDSLRuntime
+  class SectionListBuilder
     def initialize(host)
       @host = host
       @result = []
@@ -78,10 +78,17 @@ class Page
       #   puts "ERROR: #{ex}" # Guard to avoid crash
     end
 
+    def respond_to?(symbol, include_private = false)
+      return true if super
+      @host.respond_to?(symbol)
+    end
+
     def method_missing(name, *args, &block)
-      # delegate all unknown calls back to @host
-      # make it allow host owned methods to be called in the section declaration block
-      @host.send name, *args, &block
+      if @host.respond_to?(name)
+        @host.send name, *args, &block
+      else
+        super
+      end
     end
   end
 end
