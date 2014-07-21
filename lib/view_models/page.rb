@@ -17,13 +17,14 @@ class Page
     File.join(base_path, "#{taxonomy_node.get_path}/index.html")
   end
 
-  def file_path
+  cached_attr :file_path do
     path_for_node(output_path, taxonomy_node)
   end
 
   cached_attr :title do
     taxonomy_node.name
   end
+
 
   cached_attr :navigation_items do
     result = []
@@ -43,18 +44,13 @@ class Page
 
   declare_sections do
 
-    section :introductory, :introduction
+    section :introductory, :introduction do |introduction|
+      Section.new(introduction.name, introduction.values[:overview])
+    end
 
-    section :history, :history
+    section :history, :history do |history|
+      Section.new(history.name, history.values[:overview], history.values[:history])
+    end
 
-  end
-
-
-  section_builder :introductory, :introduction do |introduction|
-    Section.new(introduction.name, introduction.values[:overview])
-  end
-
-  section_builder :history, :history do |history|
-    Section.new(history.name, history.values[:overview], history.values[:history])
   end
 end
