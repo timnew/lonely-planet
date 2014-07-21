@@ -36,20 +36,22 @@
                 .clear
               .content
                 .inner
-                  - section.paragraphs.each do |p|
-                    %p
-                      = p
+                  - section.blocks.each do |b|
+                    - if b.has_content?
+                      .text-block
+                        - if b.has_heading?
+                          %h3{ extra_attrs(b.extra?) }= b.heading
 
-                  - section.extra_paragraphs.each do |p|
-                    %p.extra(style="display: none;")
-                      = p
+                        - b.paragraphs.each do |p|
+                          %p{ extra_attrs(b.extra?) }= p
 
-                  - if section.extra_paragraphs.length > 0
-                    %a(href="#" data-action="extra") Click to toggle more...
+                        - if b.extra?
+                          %a(href="#" data-action="extra") Click to toggle more...
+
     :coffee
       $('[data-action=extra]').click (e) ->
         e.preventDefault()
 
-        $(e.target).closest('.inner').find('p.extra').slideToggle('slow')
+        $(e.target).closest('.text-block').find('.extra').slideToggle('slow')
 
 

@@ -7,9 +7,9 @@ class ViewModelBuilder
         klass = something.class
       end
 
-      if klass.const_defined? :Builder
-        builder_class = klass.const_get :Builder
-      else
+      begin
+        builder_class = klass.const_get :Builder # Enforce autoload if exists
+      rescue NameError
         builder_class = ViewModelBuilder
       end
 

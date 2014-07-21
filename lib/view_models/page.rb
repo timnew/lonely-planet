@@ -63,15 +63,33 @@ class Page
     section :introductory, :introduction do |introduction|
       build Section do
         title introduction.name
-        paragraphs introduction.values[:overview]
+        block introduction.values[:overview]
       end
     end
 
     section :history, :history do |history|
       build Section do
         title history.name
-        paragraphs history.values[:overview]
-        extra_paragraphs history.values[:history]
+        block history.values[:overview]
+        extra_block 'History', history.values[:history]
+      end
+    end
+
+    section :weather, :when_to_go do |when_to_go|
+      build Section do
+        title 'When To Go'
+        block 'Overview', when_to_go.values[:overview]
+        block 'Climate', when_to_go.values[:climate], extra: !when_to_go.values[:overview].empty?
+      end
+    end
+
+    section :practical_information, :health_and_safety do |health_and_safety|
+      build Section do
+        title 'Health And Safety'
+        block 'Before You Go', health_and_safety.values[:before_you_go]
+        block 'Dangers And Annoyances', health_and_safety.values[:dangers_and_annoyances]
+        block 'In Transit', health_and_safety.values[:in_transit]
+        block 'While You\'re there', health_and_safety.values[:while_youre_there]
       end
     end
   end
