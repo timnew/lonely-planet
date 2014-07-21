@@ -71,7 +71,7 @@ class Page
       build Section do
         title history.name
         block history.values[:overview]
-        extra_block 'History', history.values[:history]
+        extra_block history.values[:history]
       end
     end
 
@@ -86,10 +86,12 @@ class Page
     section :practical_information, :health_and_safety do |health_and_safety|
       build Section do
         title 'Health And Safety'
-        block 'Before You Go', health_and_safety.values[:before_you_go]
-        block 'Dangers And Annoyances', health_and_safety.values[:dangers_and_annoyances]
-        block 'In Transit', health_and_safety.values[:in_transit]
-        block 'While You\'re there', health_and_safety.values[:while_youre_there]
+        extra_block 'Before You Go', health_and_safety.values[:before_you_go]
+        extra_block 'Dangers And Annoyances', health_and_safety.values[:dangers_and_annoyances]
+        extra_block 'In Transit', health_and_safety.values[:in_transit]
+        extra_block 'While You\'re there', health_and_safety.values[:while_youre_there]
+      end
+    end
       end
     end
   end
