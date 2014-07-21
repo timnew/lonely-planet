@@ -16,4 +16,4 @@ def setup_autoload(*dirs)
   ActiveSupport::Dependencies.autoload_paths += paths
 end
 
-setup_autoload 'extensions', 'models', 'actors', 'view_models'
+setup_autoload 'extensions', 'models', 'actors', 'view_models', 'view_helpers'
