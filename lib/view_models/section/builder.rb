@@ -7,7 +7,7 @@ class Section
     end
 
     def extra_block(heading = nil, paras)
-      block(heading = nil, paras, extra: true)
+      block(heading, paras, extra: true)
     end
   end
 end
