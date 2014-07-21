@@ -9,17 +9,6 @@ class Page
       ['section', names].flatten!.join('_').to_sym
     end
 
-    def self.walk_through_path(destination, *names)
-      current = destination
-
-      names.each do |n|
-        return nil unless current.has_child? n
-        current = current[n.to_sym]
-      end
-
-      current
-    end
-
     def declare_sections(&block)
       cached_attr :sections do
         SectionListBuilder
@@ -32,7 +21,7 @@ class Page
     def section(*names, &block)
       builder_name = SectionDSL.section_builder_name(*names)
       define_method builder_name do
-        current = SectionDSL.walk_through_path(destination, *names)
+        current = destination[*names]
         return nil if current.nil?
         block.call current
       end
@@ -61,7 +50,7 @@ class Page
     def section(*names)
       builder_method = SectionDSL.section_builder_name(*names)
       if block_given?
-        current = SectionDSL.walk_through_path(destination, *names)
+        current = destination[*names]
 
         if current.nil?
           section_result = nil

@@ -1,38 +1,39 @@
 describe Node do
-  it 'should initialize children with given value' do
-    node = Node.new 'name', Hash.new('super')
+  subject do
+    Node.new 'root'
+  end
 
-    node[:a].should == 'super'
+  it 'should initialize children with given value' do
+    subject = Node.new 'name', Hash.new('super')
+
+    subject[:a].should == 'super'
   end
 
   it 'should has [], []=, length as same as children' do
-    node = Node.new 'name'
+    subject.length.should == 0
 
-    node.length.should == 0
+    subject[:a] = 'super'
+    subject.children[:a].should == 'super'
 
-    node[:a] = 'super'
-    node.children[:a].should == 'super'
+    subject.children[:a] = 'cool'
+    subject[:a].should == 'cool'
 
-    node.children[:a] = 'cool'
-    node[:a].should == 'cool'
-
-    node.length.should == 1
+    subject.length.should == 1
   end
 
   describe 'add child' do
+    let(:parent) { Node.new 'parent' }
+    let(:child) { Node.new 'child' }
+
     it 'should add child' do
-      parent = Node.new 'parent'
-      child = Node.new 'example'
 
-      parent.add_child child, 'child'
+      parent.add_child child, 'new_child'
 
-      parent.children[:child].should == child
+      parent.children[:new_child].should == child
       child.parent.should == parent
     end
 
     it 'should infer child name' do
-      parent = Node.new 'parent'
-      child = Node.new 'child'
 
       parent.add_child child
 
@@ -54,4 +55,21 @@ describe Node do
     child.parent.should == parent
     child.name.should == 'child'
   end
+
+  describe 'retrieve child recursively' do
+    it 'should retrieve child' do
+      subject.create_child('a').create_child('b').create_child('c')
+      subject[:a, :b, :c].name.should == 'c'
+    end
+
+    it 'should yield nil when child not exists' do
+      subject.create_child('a').create_child('b').create_child('c')
+      subject[:a, :b, :d].should be_nil
+    end
+
+    it 'should yield nil when path not exists' do
+      subject[:a, :b, :c].should be_nil
+    end
+  end
+
 end

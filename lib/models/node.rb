@@ -19,5 +19,25 @@ class Node
     child
   end
 
-  delegate :[], :[]=, :length, to: :children
+  def has_child?(*names)
+    raise ArgumentError, 'wrong number of arguments (at least one)' if names.empty?
+
+    return false unless children.has_key? names.first.to_sym
+    return true if names.one?
+    children[names.first.to_sym].has_child?(*names[1..-1])
+  end
+
+  def [](*names)
+    raise ArgumentError, 'wrong number of arguments (at least one)' if names.empty?
+
+    child = children[names.first.to_sym]
+
+    return nil if child.nil?
+
+    return child if names.one?
+
+    child[*names[1..-1]]
+  end
+
+  delegate :[]=, :length, to: :children
 end

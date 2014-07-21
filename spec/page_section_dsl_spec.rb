@@ -35,7 +35,10 @@ describe Page::SectionDSL do
     allow(result).to receive(:has_child?).with(:introductory) { true }
     allow(result).to receive(:has_child?).with(:wildlife) { true }
     allow(result).to receive(:[]).with(:introductory) { introductory }
+    allow(result).to receive(:[]).with(:introductory, :introduction) { introduction }
     allow(result).to receive(:[]).with(:wildlife) { wildlife }
+    allow(result).to receive(:[]).with(:wildlife, :animals) { animals }
+    allow(result).to receive(:[]).with(:wildlife, :aliens) { nil }
 
     result
   end
