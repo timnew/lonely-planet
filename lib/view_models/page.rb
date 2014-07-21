@@ -1,5 +1,6 @@
 class Page
   extend CachedAttrs
+  extend SectionDSL
 
   attr_reader :taxonomy_node, :destination
 
@@ -40,13 +41,20 @@ class Page
     result
   end
 
-  cached_attr :sections do
-    result = []
+  declare_sections do
 
-    if destination.has_child? :history
-      history = destination.history.history
-      result << Section.new(history.name, history.values[:overview], history.values[:history])
-    end
-    result
+    section :introductory, :introduction
+
+    section :history, :history
+
+  end
+
+
+  section_builder :introductory, :introduction do |introduction|
+    Section.new(introduction.name, introduction.values[:overview])
+  end
+
+  section_builder :history, :history do |history|
+    Section.new(history.name, history.values[:overview], history.values[:history])
   end
 end
