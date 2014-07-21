@@ -40,7 +40,7 @@
                     - if b.has_content?
                       .text-block
                         - if b.has_heading?
-                          %h3{ extra_attrs(b.extra?) }= b.heading
+                          %h3= b.heading
 
                         - b.paragraphs.each do |p|
                           %p{ extra_attrs(b.extra?) }= p
@@ -52,6 +52,6 @@
       $('[data-action=extra]').click (e) ->
         e.preventDefault()
 
-        $(e.target).closest('.text-block').find('.extra').slideToggle('slow')
+        $(e.target).closest('.text-block').find('p.extra').slideToggle('slow')
 
 
