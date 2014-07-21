@@ -29,7 +29,7 @@ class Page
       end
     end
 
-    def section_builder(*names, &block)
+    def section(*names, &block)
       builder_name = SectionDSL.section_builder_name(*names)
       define_method builder_name do
         current = SectionDSL.walk_through_path(destination, *names)
