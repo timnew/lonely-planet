@@ -35,6 +35,11 @@ describe CachedAttrs do
       'value'
     end
 
+    cached_array_attr :cached_array do |result|
+      result << 1
+      result.concat [2, 3, 4]
+    end
+
     private
 
     def actual_method
@@ -69,5 +74,9 @@ describe CachedAttrs do
   it 'should escape ? and ! in method name' do
     subject.some_boolean?.should == 'value'
     subject.some_dangerous!.should == 'value'
+  end
+
+  it 'should populate cached array' do
+    subject.cached_array.should contain_exactly 1, 2, 3, 4
   end
 end

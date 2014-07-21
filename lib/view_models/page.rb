@@ -25,10 +25,7 @@ class Page
     taxonomy_node.name
   end
 
-
-  cached_attr :navigation_items do
-    result = []
-
+  cached_array_attr :navigation_items do |result|
     taxonomy_node.each_parent do |parent|
       result.unshift NavigationItem.from_taxonomy_node(self, parent, 'fa-level-up')
     end
@@ -38,8 +35,6 @@ class Page
     taxonomy_node.children.each_value do |child|
       result.push NavigationItem.from_taxonomy_node(self, child, 'fa-level-down')
     end
-
-    result
   end
 
   declare_sections do
