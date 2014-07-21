@@ -52,6 +52,8 @@ command :analyze do |c|
   c.syntax = 'render analyze [FILE...]'
   c.description = 'Analyze xml semantic hierarchy'
   c.action do |args, options|
+    args.push('destinations.xml') if args.empty?
+
     args.each do |file|
       puts "Analyzing file #{file}..."
       SemanticNode.analyze(file).print_tree
