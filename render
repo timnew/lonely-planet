@@ -42,7 +42,7 @@ command :render do |c|
       root_path = options.output
     end
 
-    PageMaker.new(options.output, options.output, render, options.taxonomy, options.destinations)
+    PageMaker.new(options.output, root_path, render, options.taxonomy, options.destinations)
     .load_taxonomy
     .run
   end
