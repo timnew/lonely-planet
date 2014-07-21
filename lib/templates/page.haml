@@ -5,7 +5,9 @@
     %title Lonely Planet
     %link(media="screen" rel="stylesheet" type="text/css"){ href: "#{root_path}/static/all.css" }
     %link(rel="stylesheet" type="text/css"){ href: "#{root_path}/static/font-awesome.min.css" }
-    %script(type="text/javascript"){ src: "#{root_path}/static/jquery-2.1.1.min.js" }
+    %script(type="text/javascript"){ src: "#{root_path}/static/jquery.min.js" }
+    %script(type="text/javascript"){ src: "#{root_path}/static/scrollspy.js" }
+    %script(type="text/javascript"){ src: "#{root_path}/static/affix.js" }
     %script(type="text/javascript"){ src: "#{root_path}/static/widget.js" }
     %script(type="text/javascript"){ src: "#{root_path}/static/block_widget.js" }
   %body
@@ -16,7 +18,7 @@
           = "Lonely Planet: #{title}"
 
       #wrapper
-        #sidebar
+        #sidebar(data-spy="affix" data-offset-top="86")
           .block
             %h3 Navigation
             .content
@@ -27,13 +29,24 @@
                       %a{ href: item.href }
                         %i.fa{class: item.icon}
                         = item.text
+
+          .block
+            %h3 Sections
+            .content
+              .inner
+                %ul.navigation
+                  - sections.each do |section|
+                    %li
+                      %a{ href: "##{section.title.underscore}" }
+                        %i.fa.fa-compass
+                        = section.title
         #main
           - sections.each do |section|
-            .block
+            .block{id: section.title.underscore }
               .secondary-navigation
                 %ul
                   %li.first
-                    %a{ href: '#' }
+                    %a{ href: "##{section.title.underscore}" }
                       = section.title.upcase
                 .clear
               .content
