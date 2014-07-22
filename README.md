@@ -1,7 +1,7 @@
 lonely-planet
 ==============
 
-[![Build Status](https://drone.io/github.com/timnew/lonely-planent/status.png)](https://drone.io/github.com/timnew/lonely-planent/latest)
+[![Build Status](https://drone.io/github.com/timnew/lonely-planet/status.png)](https://drone.io/github.com/timnew/lonely-planet/latest)
 
 Environment
 -----------
