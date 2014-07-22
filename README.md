@@ -45,6 +45,8 @@ To render the pages, execute:
 ```
 A `output` folder will be created under current working directory, which contains all the generated files with all dependent resoruces, such `css` or `js` files.
 
+** HINT ** For given `taxonomy.xml` and `destinations.xml`, the root page of generated site will be `output/Africa/index.html`
+
 `builder render` provides some options to configure the render process, to know more execute:
 
 ```
