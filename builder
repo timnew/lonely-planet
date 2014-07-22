@@ -11,11 +11,11 @@ command :render do |c|
   c.syntax = 'render render [options]'
   c.description = 'Render html files from dataset'
 
-  c.option '-t', '--taxonomy FILE', 'Specify the path to taxonomy xml file'
-  c.option '-d', '--destinations FILE', 'Specify the path to destination xml file'
-  c.option '--template FILE', 'Specify the template folder'
-  c.option '-o', '--output PATH', 'Specify the output folder'
-  c.option '-w', '--web', 'Render page for web site'
+  c.option '-t', '--taxonomy FILE', 'Specify the path to taxonomy xml file (default: taxonomy.xml)'
+  c.option '-d', '--destinations FILE', 'Specify the path to destination xml file(default: destinations.xml)'
+  c.option '--template FILE', 'Specify the template folder (default: lib/templates)'
+  c.option '-o', '--output PATH', 'Specify the output folder (default: output)'
+  c.option '-w', '--web', 'Render page for web site (default: false)'
   c.action do |args, options|
     options.default taxonomy: 'taxonomy.xml',
                     destinations: 'destinations.xml',
@@ -49,8 +49,8 @@ command :render do |c|
 end
 
 command :analyze do |c|
-  c.syntax = 'render analyze [FILE...]'
-  c.description = 'Analyze xml semantic hierarchy'
+  c.syntax = 'render analyze [FILE [FILE...]]'
+  c.description = 'Analyze xml semantic hierarchy (destinations.xml will be analyzed if no extra argument is provided)'
   c.action do |args, options|
     args.push('destinations.xml') if args.empty?
 
