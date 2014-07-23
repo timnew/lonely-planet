@@ -1,20 +1,4 @@
 class Page
-  module SectionDSL
-
-    def self.extended(mod)
-      mod.extend CachedAttrs # inject dependency module
-    end
-
-    def declare_sections(&block)
-      cached_attr :sections do
-        SectionListBuilder
-        .new(self)
-        .execute(&block)
-        .result
-      end
-    end
-  end
-
   class SectionListBuilder
     def initialize(host)
       @host = host
