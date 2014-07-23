@@ -39,11 +39,11 @@ describe Block do
   end
 
   it 'should check extra existence' do
-    subject.has_content?.should be_falsey
+    subject.has_extra?.should be_falsey
 
     subject.paragraphs = %w(a b c)
 
-    subject.has_content?.should be_truthy
+    subject.has_extra?.should be_truthy
   end
 
   it 'should generate paragraph attributes' do
