@@ -9,10 +9,6 @@ class Page
     @destination = destination
   end
 
-  def path_for_node(taxonomy_node)
-    File.join(root_path, "#{taxonomy_node.get_path}/index.html")
-  end
-
   cached_attr :file_path do
     path_for_node(taxonomy_node)
   end
@@ -33,21 +29,6 @@ class Page
     end
   end
 
-
-  def section(*names)
-    current = destination[*names]
-
-    if current.nil?
-      section_result = nil
-    else
-      section_result = yield current
-    end
-
-    @sections << section_result unless section_result.nil?
-  rescue Exception => ex
-    puts "ERROR: #{ex}" # Guard to avoid crash
-  end
-
   cached_attr :sections do
     @sections = []
 
@@ -63,7 +44,6 @@ class Page
         extra_block history.values[:history]
       end
     end
-
 
     section :weather, :when_to_go do |when_to_go|
       Section.new 'When To Go' do
@@ -180,5 +160,25 @@ class Page
     end
 
     @sections
+  end
+
+  protected
+
+  def path_for_node(taxonomy_node)
+    File.join(root_path, "#{taxonomy_node.get_path}/index.html")
+  end
+
+  def section(*names)
+    current = destination[*names]
+
+    if current.nil?
+      section_result = nil
+    else
+      section_result = yield current
+    end
+
+    @sections << section_result unless section_result.nil?
+  rescue Exception => ex
+    puts "ERROR: #{ex}" # Guard to avoid crash
   end
 end
