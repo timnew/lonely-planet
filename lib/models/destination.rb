@@ -14,7 +14,7 @@ class Destination < DestinationNode
   end
 
   def self.load(listener, file)
-    visitor = Visitor.new listener
+    visitor = DestinationVisitor.new listener
 
     parser = Nokogiri::XML::SAX::Parser.new visitor
 

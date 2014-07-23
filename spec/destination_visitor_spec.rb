@@ -1,8 +1,8 @@
-describe Destination::Visitor do
+describe DestinationVisitor do
   let(:listener) { double }
 
   subject do
-    Destination::Visitor.new listener
+    DestinationVisitor.new listener
   end
 
   it 'should invoke callback' do
