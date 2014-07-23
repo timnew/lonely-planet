@@ -13,8 +13,7 @@ class PageMaker
   def load_taxonomy
     puts "Loading Taxonomy from #{@taxonomy_file}..."
 
-    taxonomy = Taxonomy.load @taxonomy_file
-    @taxonomy_nodes = taxonomy.flatten
+    @taxonomy_nodes = TaxonomyNode.load @taxonomy_file
 
     puts "#{taxonomy_nodes.length} taxonomy nodes loaded."
 
