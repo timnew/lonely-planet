@@ -13,6 +13,14 @@ class Block
     paragraphs.length > limit
   end
 
+  def paragraph_attr(extra)
+    if extra
+      {class: 'extra', style:'display: none;' }
+    else
+      {}
+    end
+  end
+
   def initialize(paras = [], limit: nil, heading: nil)
     @limit = limit.nil? ? paras.length : limit
     @heading = heading

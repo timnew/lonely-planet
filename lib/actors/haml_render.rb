@@ -5,8 +5,6 @@ class HamlRender
   end
 
   def render(page)
-    page.extend ExtraAttrs
-
     html = @engine.render(locals = page)
 
     file_path = page.file_path

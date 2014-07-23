@@ -54,11 +54,11 @@
                   - section.blocks.each do |b|
                     - if b.has_content?
                       .text-block(data-widget="Block")
-                        - if b.has_heading?
+                        - if b.heading.nil?
                           %h3= b.heading
 
                         - b.paragraphs.each_with_index do |p, i|
-                          %p{ extra_attrs(i >= b.limit) }= p
+                          %p{ b.paragraph_attr(i >= b.limit) }= p
 
                         - if b.has_extra?
                           %a(href="#" data-widget-part='toggleButton' data-action-handler="toggleExtras")
