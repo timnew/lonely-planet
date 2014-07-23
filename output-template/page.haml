@@ -58,7 +58,7 @@
                           %h3= b.heading
 
                         - b.paragraphs.each_with_index do |p, i|
-                          %p{ b.paragraph_attr(i >= b.limit) }= p
+                          %p{ b.paragraph_attr(i) }= p
 
                         - if b.has_extra?
                           %a(href="#" data-widget-part='toggleButton' data-action-handler="toggleExtras")

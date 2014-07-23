@@ -1,6 +1,12 @@
 class Block
   attr_accessor :paragraphs, :heading, :limit
 
+  def initialize(paras = [], limit: nil, heading: nil)
+    @limit = limit.nil? ? paras.length : limit
+    @heading = heading
+    @paragraphs = paras
+  end
+
   def has_heading?
     !heading.nil?
   end
@@ -13,17 +19,12 @@ class Block
     paragraphs.length > limit
   end
 
-  def paragraph_attr(extra)
-    if extra
-      {class: 'extra', style:'display: none;' }
+  def paragraph_attr(index)
+    if index >= limit
+      {class: 'extra', style: 'display: none;'}
     else
       {}
     end
   end
 
-  def initialize(paras = [], limit: nil, heading: nil)
-    @limit = limit.nil? ? paras.length : limit
-    @heading = heading
-    @paragraphs = paras
-  end
 end
