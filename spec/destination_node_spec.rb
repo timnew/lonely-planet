@@ -18,14 +18,6 @@ describe DestinationNode do
     subject.values[:history].should contain_exactly 'history1', 'history2', 'history3'
   end
 
-  it 'should check child existence' do
-    subject.has_child?('sample').should be_falsey
-
-    subject.create_child('sample')
-
-    subject.has_child?('sample').should be_truthy
-  end
-
   it 'should check child value' do
     subject.has_value?('sample').should be_falsey
 

@@ -14,10 +14,6 @@ class DestinationNode < Node
     values[name.to_sym] << value
   end
 
-  def has_child?(name)
-    children.has_key? name.to_sym
-  end
-
   def has_value?(name)
     values.has_key? name.to_sym
   end

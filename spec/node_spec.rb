@@ -56,6 +56,29 @@ describe Node do
     child.name.should == 'child'
   end
 
+  describe 'check child existence' do
+    it 'should check direct child existence'do
+      subject.create_child('a')
+
+      subject.has_child?(:a).should be_truthy
+      subject.has_child?(:b).should be_falsey
+    end
+
+    it 'should check child existence recursively'   do
+      subject.create_child('a').create_child('b').create_child('c')
+
+      subject.has_child?(:a, :b, :c).should be_truthy
+
+      subject.has_child?(:a, :b, :d).should be_falsey
+      subject.has_child?(:a, :d, :c).should be_falsey
+      subject.has_child?(:a, :d, :e).should be_falsey
+    end
+
+    it 'should raise error when no parameter is provided' do
+      expect { subject.has_child? }.to raise_error ArgumentError, 'wrong number of arguments (at least one)'
+    end
+  end
+
   describe 'retrieve child recursively' do
     it 'should retrieve child' do
       subject.create_child('a').create_child('b').create_child('c')
@@ -69,6 +92,10 @@ describe Node do
 
     it 'should yield nil when path not exists' do
       subject[:a, :b, :c].should be_nil
+    end
+
+    it 'should raise error when no parameter is provided' do
+      expect { subject[] }.to raise_error ArgumentError, 'wrong number of arguments (at least one)'
     end
   end
 
