@@ -15,7 +15,6 @@ command :render do |c|
   c.option '-d', '--destinations FILE', 'Specify the path to destination xml file(default: destinations.xml)'
   c.option '--template FILE', 'Specify the template folder (default: lib/templates)'
   c.option '-o', '--output PATH', 'Specify the output folder (default: output)'
-  c.option '-w', '--web', 'Render page for web site (default: false)'
   c.action do |args, options|
     options.default taxonomy: 'taxonomy.xml',
                     destinations: 'destinations.xml',
@@ -36,13 +35,7 @@ command :render do |c|
 
     render = HamlRender.new File.join(options.template, 'page.haml')
 
-    if options.web
-      root_path = '/'
-    else
-      root_path = options.output
-    end
-
-    PageMaker.new(options.output, root_path, render, options.taxonomy, options.destinations)
+    PageMaker.new(options.output, render, options.taxonomy, options.destinations)
     .load_taxonomy
     .run
   end

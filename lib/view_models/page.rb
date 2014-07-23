@@ -3,25 +3,20 @@ class Page
 
   attr_reader :taxonomy_node, :destination
 
-  def initialize(output_path, root_path, taxonomy_node, destination)
-    @output_path = output_path
+  def initialize(root_path, taxonomy_node, destination)
     @root_path = root_path
     @taxonomy_node = taxonomy_node
     @destination = destination
   end
 
-  attr_reader :output_path, :root_path
+  attr_reader :root_path
 
-  def path_for_node(base_path, taxonomy_node)
-    File.join(base_path, "#{taxonomy_node.get_path}/index.html")
-  end
-
-  def url_for_node(taxonomy_node)
-    path_for_node(root_path, taxonomy_node)
+  def path_for_node(taxonomy_node)
+    File.join(root_path, "#{taxonomy_node.get_path}/index.html")
   end
 
   cached_attr :file_path do
-    path_for_node(output_path, taxonomy_node)
+    path_for_node(taxonomy_node)
   end
 
   cached_attr :title do
@@ -30,13 +25,13 @@ class Page
 
   cached_array_attr :navigation_items do |items|
     taxonomy_node.each_parent do |parent|
-      items.unshift NavigationItem.new url_for_node(parent), parent.name, 'fa-level-up'
+      items.unshift NavigationItem.new path_for_node(parent), parent.name, 'fa-level-up'
     end
 
     items.push NavigationItem.new '#', taxonomy_node.name, 'fa-smile-o'
 
     taxonomy_node.children.each_value do |child|
-      items.push NavigationItem.new url_for_node(child), child.name, 'fa-level-down'
+      items.push NavigationItem.new path_for_node(child), child.name, 'fa-level-down'
     end
   end
 
