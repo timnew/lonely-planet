@@ -117,27 +117,6 @@ describe XmlVisitor do
     end
   end
 
-  describe 'current_element_path method' do
-    it 'should build element path with depth 2 by default' do
-      subject.start_element 'grand_parent', []
-      subject.start_element 'parent', []
-      subject.start_element 'example', []
-      subject.current_element_path.should == 'parent_example'
-    end
-
-    it 'should build element path with specific depth' do
-      subject.start_element 'grand_parent', []
-      subject.start_element 'parent', []
-      subject.start_element 'example', []
-      subject.current_element_path(3).should == 'grand_parent_parent_example'
-    end
-
-    it 'should not raise exception if depth is not enough' do
-      subject.start_element 'example', []
-      subject.current_element_path(3).should be_nil
-    end
-  end
-
   describe 'skip current element' do
     it 'should skip current element' do
       subject.start_element 'parent', []

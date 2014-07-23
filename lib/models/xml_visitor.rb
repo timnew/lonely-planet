@@ -35,14 +35,6 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     end
   end
 
-  def current_element_path(depth = 2)
-    name_parts = element_stack[-depth..-1]
-
-    return nil if name_parts.nil?
-
-    name_parts.join('_')
-  end
-
   def skip_current_element
     @skip_level = element_stack.length
   end
