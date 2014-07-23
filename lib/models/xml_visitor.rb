@@ -55,17 +55,23 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     attrs_obj = Hash[attrs].symbolize_keys!
 
     delegate_to :"enter_#{name}", attrs_obj
-    delegate_to :generic_enter, name, attrs_obj
+    generic_enter(name, attrs_obj)
+  end
+
+  def generic_enter(name, attrs)
   end
 
   def end_element(name)
     unless skip?
       delegate_to :"leave_#{name}"
-      delegate_to :generic_leave, name
+      generic_leave(name)
     end
 
     element_stack.pop
     update_skip
+  end
+
+  def generic_leave(name)
   end
 
   def characters(text)
@@ -78,6 +84,9 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     return if skip?
 
     delegate_to :"#{current_element}_cdata", text
-    delegate_to :generic_cdata, text
+    generic_cdata(text)
+  end
+
+  def generic_cdata(text)
   end
 end
