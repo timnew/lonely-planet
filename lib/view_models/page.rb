@@ -110,8 +110,8 @@ class Page
     section :practical_information, :visas do |visas|
       Section.new 'Visas' do
         block visas.values[:overview]
-        extra_block visas.values[:other]
         block 'Permits', visas.values[:permits]
+        extra_block visas.values[:other]
       end
     end
 
