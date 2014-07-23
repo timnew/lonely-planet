@@ -18,7 +18,7 @@ command :render do |c|
   c.action do |args, options|
     options.default taxonomy: 'taxonomy.xml',
                     destinations: 'destinations.xml',
-                    template: 'lib/templates',
+                    template: 'output-template',
                     output: 'output'
 
     cwd = File.dirname(__FILE__)

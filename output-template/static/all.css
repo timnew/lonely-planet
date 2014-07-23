@@ -57,11 +57,6 @@ body {
   padding: 1px 0;
 }
 
-#sidebar {
-  width: 25%;
-  float: right;
-}
-
 #sidebar h3 {
   padding: 10px 15px;
   margin: 0;
@@ -96,7 +91,7 @@ body {
 }
 
 #main .block .content .inner {
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 15px 15px;
 }
 
 #main .main p.first {
@@ -141,8 +136,7 @@ body {
 
 .secondary-navigation {
   font-size: 13px;
-  border-bottom-width: 10px;
-  border-bottom-style: solid;
+  border-bottom: 10px solid;
 }
 
 .secondary-navigation ul li a {
@@ -254,8 +248,6 @@ ul.list li .item .avatar {
 #box .block .content {
   padding: 15px 20px;
 }
-
-
 
 .small { font-size:11px; }
 .gray { color:#999999; }
@@ -582,5 +574,26 @@ form.bulk_poi_editor th a {
 }
 
 #sidebar .block .content .inner {
-padding:15px 0 0 0;
+  padding:15px 0 0 0;
+}
+
+#sidebar{
+   width: 25%;
+   right: 20px;
+}
+
+.affix-top {
+   position: absolute;
+}
+
+.affix-bottom {
+    position: absolute;
+}
+
+.affix {
+    position: fixed;
+    top: 10px;
+    -webkit-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
