@@ -4,13 +4,15 @@ class Taxonomy
 
     attr_accessor :atlas_id
 
-    def initialize(atlas_id)
+    def initialize(parent, atlas_id)
       super ''
+      self.parent = parent
+      parent.children[atlas_id] = self unless parent.nil?
       @atlas_id = atlas_id
     end
 
     def each_parent(&block)
-      return if parent.is_a?(Taxonomy)
+      return if parent.nil?
 
       yield parent
 

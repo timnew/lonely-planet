@@ -1,16 +1,14 @@
-class Taxonomy < Node
-  include SharedBehaviors
+class Taxonomy
+  def add_node(node)
+    @nodes[node.atlas_id] = node
+  end
 
   def initialize
-    super 'Taxonomy'
+    @nodes = {}
   end
 
   def flatten
-    result = {}
-
-    flatten_children(result)
-
-    result
+    @nodes
   end
 
   def self.load(file)
