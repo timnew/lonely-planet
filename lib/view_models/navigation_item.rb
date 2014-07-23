@@ -1,3 +1,1 @@
-class NavigationItem
-  attr_accessor :href, :text, :icon
-end
+NavigationItem = Struct.new('NavigationItem', :href, :text, :icon)

@@ -32,29 +32,13 @@ class Page
 
   cached_array_attr :navigation_items do |items|
     taxonomy_node.each_parent do |parent|
-      item = build(NavigationItem) do
-        href url_for_node(parent)
-        text parent.name
-        icon 'fa-level-up'
-      end
-
-      items.unshift item
+      items.unshift NavigationItem.new  url_for_node(parent), parent.name, 'fa-level-up'
     end
 
-    item = build NavigationItem do
-      href '#'
-      text taxonomy_node.name
-      icon 'fa-smile-o'
-    end
-    items.push item
+    items.push NavigationItem.new '#', taxonomy_node.name, 'fa-smile-o'
 
     taxonomy_node.children.each_value do |child|
-      item = build(NavigationItem) do
-        href url_for_node(child)
-        text child.name
-        icon 'fa-level-down'
-      end
-      items.push item
+      items.push NavigationItem.new url_for_node(child), child.name, 'fa-level-down'
     end
   end
 
