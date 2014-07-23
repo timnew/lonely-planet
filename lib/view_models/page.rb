@@ -46,7 +46,7 @@ class Page
     end
 
     @sections << section_result unless section_result.nil?
-  rescue ex
+  rescue Exception => ex
     puts "ERROR: #{ex}" # Guard to avoid crash
   end
 
@@ -158,22 +158,24 @@ class Page
     section :wildlife do |wildlife|
       Section.new 'Wildlife' do
 
-        block wildlife.overview.values[:overview]
+        if wildlife.has_child?(:overview)
+          block wildlife[:overview].values[:overview]
+        end
 
         if wildlife.has_child?(:endangered_species)
-          block 'Endangerd Species', wildlife.endangered_species.values[:overview]
+          block 'Endangerd Species', wildlife[:endangered_species].values[:overview]
         end
 
         if wildlife.has_child?(:animals)
-          block 'Animals', wildlife.animals.values[:overview]
+          block 'Animals', wildlife[:animals].values[:overview]
         end
 
         if wildlife.has_child?(:birds)
-          block 'Birds', wildlife.birds.values[:overview]
+          block 'Birds', wildlife[:birds].values[:overview]
         end
 
         if wildlife.has_child?(:plants)
-          block 'Plants', wildlife.plants.values[:overview]
+          block 'Plants', wildlife[:plants].values[:overview]
         end
 
       end

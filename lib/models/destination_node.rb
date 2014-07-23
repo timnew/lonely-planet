@@ -17,9 +17,4 @@ class DestinationNode < Node
   def has_value?(name)
     values.has_key? name.to_sym
   end
-
-  def method_missing(name, *args, &block)
-    return children[name.to_sym] if has_child? name
-    super
-  end
 end

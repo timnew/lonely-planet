@@ -25,19 +25,6 @@ describe DestinationNode do
 
     subject.has_value?('sample').should be_truthy
   end
-
-  describe 'children as attribute reader' do
-    it 'should treat child node as method' do
-      subject.create_child 'sample'
-      subject.sample.should be_an_instance_of DestinationNode
-      subject.sample.name.should == 'sample'
-    end
-
-    it 'should raise method missing exception' do
-      expect { subject.not_exist }.to raise_error NoMethodError
-    end
-  end
-
 end
 
 describe Destination do

@@ -20,7 +20,7 @@ describe DestinationVisitor do
   it 'should handle same-named nested elements' do
     allow(listener).to receive(:included?).with(an_instance_of(String)).and_return(true)
     expect(listener).to receive(:new_destination).with(an_instance_of(Destination)) do |destination|
-      destination.history.history.values[:history].should contain_exactly 'some text'
+      destination[:history][:history].values[:history].should contain_exactly 'some text'
     end
 
     subject.start_element 'destination', [['atlas_id', '355064'], ['title', 'Africa'], ['title-ascii', 'africa']]
