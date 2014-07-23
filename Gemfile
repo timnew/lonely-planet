@@ -13,8 +13,7 @@ gem 'nokogiri'
 gem 'haml'
 gem 'coffee-script'
 
-group :test do   
+group :test do
   gem 'rspec'
-  gem 'rspec-autotest'
-  gem 'autotest-standalone'
+  gem 'simplecov', :require => false
 end

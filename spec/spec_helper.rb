@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require './lib/all'
 
 RSpec.configure do |config|
