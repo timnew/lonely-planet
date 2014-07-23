@@ -21,10 +21,9 @@ class XmlVisitor < Nokogiri::XML::SAX::Document
     node_stack.first
   end
 
-  def initialize(root_node = nil)
+  def initialize
     @element_stack = []
     @node_stack = []
-    @node_stack.push root_node unless root_node.nil?
   end
 
   def delegate_to(method_name, *args)

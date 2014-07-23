@@ -34,23 +34,14 @@ describe XmlVisitor do
       subject.parent_node.should be_nil
     end
 
-    describe 'root_node' do
-      it 'should initialize root_node in initializer' do
-        subject = XmlVisitor.new 'node'
-        subject.root_node.should == 'node'
+    it 'should populate root_node after initialized' do
+      subject = XmlVisitor.new
+      subject.root_node.should be_nil
 
-        subject.node_stack.push 'new node'
-        subject.root_node.should == 'node'
-      end
-
-      it 'should populate root_node after initialized' do
-        subject = XmlVisitor.new
-        subject.root_node.should be_nil
-
-        subject.node_stack.push 'node'
-        subject.root_node.should == 'node'
-      end
+      subject.node_stack.push 'node'
+      subject.root_node.should == 'node'
     end
+
   end
 
   describe 'delegate_to method' do
