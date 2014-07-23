@@ -37,7 +37,7 @@ describe TaxonomyNode do
 
   describe 'factory methods' do
 
-    let(:xml) { File.join(File.dirname(__FILE__), '../taxonomy.xml') }
+    let(:xml) { File.join(File.dirname(__FILE__), '../../taxonomy.xml') }
 
     it 'should load from file', :smoke do
       nodes = TaxonomyNode.load xml
