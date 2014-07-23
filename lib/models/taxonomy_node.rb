@@ -1,27 +1,6 @@
 class TaxonomyNode < Node
-  def create_child(atlas_id)
-    add_child TaxonomyNode.new atlas_id
-  end
-
-  def add_child(child)
-    super(child, child.atlas_id)
-  end
-
-  def flatten_children(container)
-    children.each_value do |child|
-      container[child.atlas_id] = child
-      child.flatten_children(container)
-    end
-  end
-
-  attr_accessor :atlas_id
-
-  def initialize(parent, atlas_id)
-    super ''
-    self.parent = parent
-    parent.children[atlas_id] = self unless parent.nil?
-    @atlas_id = atlas_id
-  end
+  alias_attribute :atlas_id, :name
+  attr_accessor :display_name
 
   def each_parent(&block)
     return if parent.nil?
@@ -32,15 +11,14 @@ class TaxonomyNode < Node
   end
 
   def get_path
-    parts = [name]
+    parts = [display_name]
 
     each_parent do |parent|
-      parts.unshift parent.name
+      parts.unshift parent.display_name
     end
 
     parts.join('/')
   end
-
 
   def self.load(file)
     visitor = TaxonomyVisitor.new

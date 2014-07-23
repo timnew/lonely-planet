@@ -20,18 +20,18 @@ class Page
   end
 
   cached_attr :title do
-    taxonomy_node.name
+    taxonomy_node.display_name
   end
 
   cached_array_attr :navigation_items do |items|
     taxonomy_node.each_parent do |parent|
-      items.unshift NavigationItem.new path_for_node(parent), parent.name, 'fa-level-up'
+      items.unshift NavigationItem.new path_for_node(parent), parent.display_name, 'fa-level-up'
     end
 
-    items.push NavigationItem.new '#', taxonomy_node.name, 'fa-smile-o'
+    items.push NavigationItem.new '#', taxonomy_node.display_name, 'fa-smile-o'
 
     taxonomy_node.children.each_value do |child|
-      items.push NavigationItem.new path_for_node(child), child.name, 'fa-level-down'
+      items.push NavigationItem.new path_for_node(child), child.display_name, 'fa-level-down'
     end
   end
 
