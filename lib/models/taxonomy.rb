@@ -1,5 +1,4 @@
-class Taxonomy < Node   
-  extend ClassMethods
+class Taxonomy < Node
   include SharedBehaviors
 
   def initialize
@@ -12,5 +11,15 @@ class Taxonomy < Node
     flatten_children(result)
 
     result
+  end
+
+  def self.load(file)
+    visitor = Visitor.new
+
+    parser = Nokogiri::XML::SAX::Parser.new(visitor)
+
+    parser.parse File.open(file)
+
+    visitor.taxonomy
   end
 end

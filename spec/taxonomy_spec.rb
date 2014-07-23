@@ -50,11 +50,11 @@ describe Taxonomy do
     parents = []
 
     subject
-      .create_child('1')
-      .create_child('11')
-      .create_child('111')
-      .create_child('self')
-      .each_parent do |parent|
+    .create_child('1')
+    .create_child('11')
+    .create_child('111')
+    .create_child('self')
+    .each_parent do |parent|
       parents.unshift parent.atlas_id
     end
 
@@ -76,10 +76,10 @@ describe Taxonomy do
 
   describe 'factory methods' do
 
-    let(:xml) { File.open(File.join(File.dirname(__FILE__), '../taxonomy.xml')) }
+    let(:xml) { File.join(File.dirname(__FILE__), '../taxonomy.xml') }
 
     it 'should load from file', :smoke do
-      taxonomy = Taxonomy.parse xml
+      taxonomy = Taxonomy.load xml
       taxonomy.name.should == 'World'
       taxonomy.children.length.should == 1
 

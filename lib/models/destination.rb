@@ -1,6 +1,4 @@
 class Destination < DestinationNode
-  extend ClassMethods
-
   attr_accessor :atlas_id, :title, :title_ascii
 
   def initialize(attrs)
@@ -13,5 +11,13 @@ class Destination < DestinationNode
 
   def create_child(name)
     add_child DestinationNode.new(name)
+  end
+
+  def self.load(listener, file)
+    visitor = Visitor.new listener
+
+    parser = Nokogiri::XML::SAX::Parser.new visitor
+
+    parser.parse File.open(file)
   end
 end
