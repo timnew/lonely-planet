@@ -25,4 +25,26 @@ describe DestinationNode do
 
     subject.has_value?('sample').should be_truthy
   end
+
+  describe 'factory methods' do
+
+    let(:xml) { File.join(File.dirname(__FILE__), '../../destinations.xml') }
+
+    let(:destinations) { [] }
+
+    def include?(atlas_id)
+      atlas_id == '355064'
+    end
+
+    def new_destination(destination)
+      destinations << destination
+    end
+
+    it 'should load from file', :smoke do
+      Destination.load(self, xml)
+
+      destinations.length.should == 1
+      destinations.first.atlas_id.should == '355064'
+    end
+  end
 end
