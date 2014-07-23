@@ -9,7 +9,7 @@ class DestinationVisitor < XmlVisitor
   end
 
   def enter_destination(attrs)
-    unless listener.included? attrs[:atlas_id]
+    unless listener.include? attrs[:atlas_id]
       skip_current_element
       return
     end

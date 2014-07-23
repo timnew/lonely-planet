@@ -26,7 +26,7 @@ class PageMaker
     Destination.load(self, @destinations_file)
   end
 
-  def included?(atlas_id)
+  def include?(atlas_id)
     result = taxonomy_nodes.has_key? atlas_id
 
     puts "Desination #{atlas_id} #{result ? 'included' : 'ignored'}"

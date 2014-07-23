@@ -1,15 +1,13 @@
 class Page
   extend CachedAttrs
 
-  attr_reader :taxonomy_node, :destination
+  attr_reader :root_path, :taxonomy_node, :destination
 
   def initialize(root_path, taxonomy_node, destination)
     @root_path = root_path
     @taxonomy_node = taxonomy_node
     @destination = destination
   end
-
-  attr_reader :root_path
 
   def path_for_node(taxonomy_node)
     File.join(root_path, "#{taxonomy_node.get_path}/index.html")

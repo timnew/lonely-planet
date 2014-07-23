@@ -6,7 +6,7 @@ describe DestinationVisitor do
   end
 
   it 'should invoke callback' do
-    allow(listener).to receive(:included?).with(an_instance_of(String)).and_return(true)
+    allow(listener).to receive(:include?).with(an_instance_of(String)).and_return(true)
     expect(listener).to receive(:new_destination).with(an_instance_of(Destination)) do |destination|
       destination.atlas_id.should == '355064'
       destination.title.should == 'Africa'
@@ -18,7 +18,7 @@ describe DestinationVisitor do
   end
 
   it 'should handle same-named nested elements' do
-    allow(listener).to receive(:included?).with(an_instance_of(String)).and_return(true)
+    allow(listener).to receive(:include?).with(an_instance_of(String)).and_return(true)
     expect(listener).to receive(:new_destination).with(an_instance_of(Destination)) do |destination|
       destination[:history][:history].values[:history].should contain_exactly 'some text'
     end
@@ -35,7 +35,7 @@ describe DestinationVisitor do
   end
 
   it 'should ignore the destinations that not included' do
-    allow(listener).to receive(:included?).with(an_instance_of(String)) { |id| id == '10010' }
+    allow(listener).to receive(:include?).with(an_instance_of(String)) { |id| id == '10010' }
     expect(listener).to receive(:new_destination).with(an_instance_of(Destination)).once do |destination|
       destination.atlas_id.should == '10010'
     end
