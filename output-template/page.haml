@@ -37,16 +37,16 @@
                 %ul.navigation
                   - sections.each do |section|
                     %li
-                      %a{ href: "##{section.title.underscore}" }
+                      %a{ href: "#section#{section.object_id.to_s}" }
                         %i.fa.fa-compass
                         = section.title
         #main
           - sections.each do |section|
-            .block{id: section.title.underscore }
+            .block{id: "section#{section.object_id.to_s}" }
               .secondary-navigation
                 %ul
                   %li.first
-                    %a{ href: "##{section.title.underscore}" }
+                    %a{ href: "#section#{section.object_id.to_s}" }
                       = section.title.upcase
                 .clear
               .content
