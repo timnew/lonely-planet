@@ -218,3 +218,96 @@ Known Issues
 1. The app might nor work properly on Windows
 2. The generated pages might not work after moved into another folder, because they locate the javascript, css and other related resources via absolute path.
 3. No build script is provided for coffee-scripts
+
+Performance
+------------
+
+Run the app 100 times against sample data
+
+### Render Comparison
+
+|     Render       | user            |  system     |   total ( real )                   |
+|--------------------|-----------------|----------------|-----------------------------------|
+| Render Haml  |  10.950000 |  0.780000 | 11.730000 ( 11.994275) |
+| Render Static |   3.380000  |  1.040000 |  4.420000 (  5.585403)   |
+
+### Method Profiler
+
+#### PageMaker
+
+| Method           | Min Time   | Max Time   | Average Time | Total Time   | Total Calls |
+|------------------|------------|------------|--------------|--------------|-------------|
+| #run             | 163.107 ms | 224.110 ms | 183.969 ms   | 18396.929 ms | 100         |
+| #new_destination | 4.042 ms   | 37.823 ms  | 6.213 ms     | 14910.753 ms | 2400        |
+| #load_taxonomy   | 1.558 ms   | 8.989 ms   | 1.781 ms     | 178.078 ms   | 100         |
+| #include?        | 0.225 ms   | 32.695 ms  | 0.327 ms     | 783.763 ms   | 2400        |
+| #log             | 0.134 ms   | 32.595 ms  | 0.194 ms     | 991.195 ms   | 5100        |
+| #initialize      | 0.005 ms   | 0.016 ms   | 0.007 ms     | 0.671 ms     | 100         |
+| #render          | 0.003 ms   | 0.117 ms   | 0.004 ms     | 9.861 ms     | 2400        |
+| #root_path       | 0.003 ms   | 0.029 ms   | 0.004 ms     | 9.536 ms     | 2400        |
+| #taxonomy_nodes  | 0.002 ms   | 0.023 ms   | 0.004 ms     | 18.589 ms    | 4900        |
+
+#### HamlRender
+
+| Method         | Min Time | Max Time  | Average Time | Total Time   | Total Calls |
+|----------------|----------|-----------|--------------|--------------|-------------|
+| #initialize    | 5.762 ms | 5.762 ms  | 5.762 ms     | 5.762 ms     | 1           |
+| #render        | 3.406 ms | 37.100 ms | 5.410 ms     | 12985.072 ms | 2400        |
+| #ensure_folder | 0.135 ms | 23.753 ms | 0.213 ms     | 512.392 ms   | 2400        |
+
+#### Haml::Engine
+
+| Method               | Min Time | Max Time  | Average Time | Total Time   | Total Calls |
+|----------------------|----------|-----------|--------------|--------------|-------------|
+| #initialize          | 5.615 ms | 5.615 ms  | 5.615 ms     | 5.615 ms     | 1           |
+| #render              | 2.927 ms | 36.088 ms | 4.695 ms     | 11268.170 ms | 2400        |
+| #set_locals          | 0.028 ms | 28.520 ms | 0.066 ms     | 157.806 ms   | 2400        |
+| #initialize_encoding | 0.009 ms | 0.009 ms  | 0.009 ms     | 0.009 ms     | 1           |
+
+#### File
+
+| Method       | Min Time | Max Time  | Average Time | Total Time | Total Calls |
+|--------------|----------|-----------|--------------|------------|-------------|
+| .unlink      | 0.027 ms | 4.140 ms  | 0.047 ms     | 163.014 ms | 3500        |
+| #initialize  | 0.015 ms | 0.484 ms  | 0.034 ms     | 82.476 ms  | 2400        |
+| .exist?      | 0.006 ms | 23.463 ms | 0.031 ms     | 77.496 ms  | 2500        |
+| .identical?  | 0.010 ms | 0.022 ms  | 0.012 ms     | 1.213 ms   | 100         |
+| .directory?  | 0.006 ms | 0.041 ms  | 0.011 ms     | 8.896 ms   | 835         |
+| .lstat       | 0.007 ms | 0.091 ms  | 0.010 ms     | 72.412 ms  | 7200        |
+| .file?       | 0.006 ms | 0.045 ms  | 0.008 ms     | 0.496 ms   | 61          |
+| .stat        | 0.006 ms | 0.021 ms  | 0.008 ms     | 1.599 ms   | 200         |
+| .join        | 0.004 ms | 25.241 ms | 0.008 ms     | 263.356 ms | 34097       |
+| .expand_path | 0.005 ms | 0.016 ms  | 0.007 ms     | 0.136 ms   | 20          |
+| .basename    | 0.005 ms | 0.016 ms  | 0.006 ms     | 0.631 ms   | 100         |
+| .dirname     | 0.003 ms | 0.022 ms  | 0.006 ms     | 17.213 ms  | 3100        |
+| .path        | 0.003 ms | 0.043 ms  | 0.004 ms     | 18.439 ms  | 4600        |
+
+#### IO
+
+| Method        | Min Time | Max Time  | Average Time | Total Time  | Total Calls |
+|---------------|----------|-----------|--------------|-------------|-------------|
+| .open         | 0.062 ms | 25.703 ms | 0.437 ms     | 1049.736 ms | 2400        |
+| .write        | 0.090 ms | 23.158 ms | 0.188 ms     | 451.621 ms  | 2400        |
+| #puts         | 0.094 ms | 32.508 ms | 0.148 ms     | 757.768 ms  | 5104        |
+| .copy_stream  | 0.022 ms | 0.502 ms  | 0.082 ms     | 90.139 ms   | 1100        |
+| .read         | 0.038 ms | 0.038 ms  | 0.038 ms     | 0.038 ms    | 1           |
+| #read         | 0.007 ms | 25.138 ms | 0.038 ms     | 242.239 ms  | 6400        |
+| #close        | 0.009 ms | 0.172 ms  | 0.031 ms     | 67.169 ms   | 2200        |
+| #write        | 0.006 ms | 6.106 ms  | 0.011 ms     | 110.723 ms  | 10208       |
+| #set_encoding | 0.004 ms | 0.008 ms  | 0.006 ms     | 0.120 ms    | 20          |
+| #stat         | 0.004 ms | 0.024 ms  | 0.005 ms     | 6.010 ms    | 1100        |
+
+#### Page
+
+| Method            | Min Time | Max Time  | Average Time | Total Time  | Total Calls |
+|-------------------|----------|-----------|--------------|-------------|-------------|
+| #navigation_items | 0.273 ms | 27.499 ms | 0.660 ms     | 1583.243 ms | 2400        |
+| #sections         | 0.004 ms | 28.820 ms | 0.633 ms     | 3039.570 ms | 4800        |
+| #file_path        | 0.004 ms | 24.586 ms | 0.138 ms     | 663.585 ms  | 4800        |
+| #path_for_node    | 0.086 ms | 26.777 ms | 0.113 ms     | 1138.156 ms | 10100       |
+| #title            | 0.048 ms | 23.839 ms | 0.085 ms     | 203.965 ms  | 2400        |
+| #section          | 0.042 ms | 23.934 ms | 0.063 ms     | 1653.213 ms | 26400       |
+| #initialize       | 0.004 ms | 0.024 ms  | 0.006 ms     | 13.883 ms   | 2400        |
+| #root_path        | 0.002 ms | 0.119 ms  | 0.004 ms     | 98.715 ms   | 26900       |
+| #taxonomy_node    | 0.002 ms | 0.122 ms  | 0.004 ms     | 43.235 ms   | 12000       |
+| #destination      | 0.002 ms | 0.120 ms  | 0.003 ms     | 81.685 ms   | 26400       |
